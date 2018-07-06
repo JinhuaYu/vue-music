@@ -4,7 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history', // 需要服务端支持
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       // savedPosition is only available for popstate navigations.
