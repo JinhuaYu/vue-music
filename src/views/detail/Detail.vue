@@ -26,7 +26,7 @@
         </mu-col>
         <mu-col span='7' class="info">
           <p class="f14 text-ellipsis">{{audio.data.sound.name}}</p>
-          <p class="f12">
+          <p class="f12 text-ellipsis">
             <em class="text-green">{{audio.data.sound.user.name}}</em> 发布在
             <em class="text-green">{{audio.data.sound.channel.name}}</em> 频道
           </p>
