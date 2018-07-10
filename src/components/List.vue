@@ -50,6 +50,7 @@ export default {
   .coverimg
     img
       width 100%
+      background #f6f6f6
     h4
       padding 6px 0 2px
       font-weight normal
@@ -82,7 +83,7 @@ export default {
     background-position -299px -215px
 
 .fire
-  background-image url(../assets/imgs/echo_mobile_sprites.png)
+  background-image url('../assets/imgs/echo_mobile_sprites.png')
   background-size 320px
 
 </style>

@@ -20,7 +20,7 @@ import VueLazyload from 'vue-lazyload' // 图片懒加载
 
 // FontAwesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faListUl, faStepForward, faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
+import { faListUl, faStepForward, faPlay, faPause, faTimes, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 import { faPlayCircle, faHeart, faBell, faPauseCircle } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -29,8 +29,9 @@ import './mock'
 
 // 自定义组件
 import Banner from './components/Banner' // 首页banner
-import List from './components/List' // 列表
+import List from './components/List' // 首页列表
 import MusicBar from './components/MusicBar' // 音乐播放组件
+import Sheet from './components/Sheet' // 播放列表
 
 Vue.config.productionTip = false
 
@@ -42,7 +43,12 @@ Vue.use(VueLazyload)
 Vue.component('Banner', Banner)
 Vue.component('List', List)
 Vue.component('MusicBar', MusicBar)
-library.add(faPlayCircle, faHeart, faBell, faListUl, faPauseCircle, faStepForward, faPlay, faPause)
+Vue.component('Sheet', Sheet)
+library.add(
+  faPlayCircle, faHeart, faBell, faListUl,
+  faPauseCircle, faStepForward, faPlay, faPause,
+  faTimes, faEllipsisV
+)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 // 全局过滤器

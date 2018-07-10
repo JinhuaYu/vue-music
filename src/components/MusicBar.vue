@@ -1,42 +1,56 @@
 <template>
   <div id="musicBar" v-if="audio_data">
+
+    <!-- sound -->
     <div class="sound">
       <audio id="audio" autoplay :src="audio_data.sound.source"></audio>
       <mu-container>
         <mu-row gutter>
-          <mu-col span='2'>
+          <mu-col span='2' class="sound-img">
             <router-link :to="{name: 'Detail', params: {id: audio_data.sound.id}}">
               <img class="img" :src="audio_data.sound.pic_100" alt="">
             </router-link>
           </mu-col>
-          <mu-col span='5' class="info">
-            <p>{{audio_data.sound.song_info.name.name}}</p>
+          <mu-col span='5' class="sound-info">
+            <p>{{audio_data.sound.name}}</p>
             <p>{{audio_data.sound.user.name}}</p>
           </mu-col>
           <mu-col span='5'>
             <mu-row class="control">
+              <!-- 列表按钮 -->
               <mu-col span='4' tag='span'>
-                <font-awesome-icon icon="list-ul" />
+                <mu-button icon @click.stop="$refs.sheet.openSheet()">
+                  <font-awesome-icon icon="list-ul" />
+                </mu-button>
               </mu-col>
-              <mu-col span='4' tag='span' @click.stop="set_audio_play(!audio_play)">
-                <!-- <font-awesome-icon v-if="audio.play" :icon="['far', 'pause-circle']" /> -->
-                <!-- <font-awesome-icon v-else :icon="['far', 'play-circle']" /> -->
-                <font-awesome-icon :icon="audio_play ? 'pause' : 'play'" />
-              </mu-col>
+              <!-- 播放按钮 -->
               <mu-col span='4' tag='span'>
-                <font-awesome-icon icon="step-forward" />
+                <mu-button icon @click.stop="set_audio_play(!audio_play)">
+                  <font-awesome-icon :icon="audio_play ? 'pause' : 'play'" />
+                </mu-button>
+              </mu-col>
+              <!-- 下一首按钮 -->
+              <mu-col span='4' tag='span'>
+                <mu-button icon @click.stop="nextSound()">
+                  <font-awesome-icon icon="step-forward" />
+                </mu-button>
               </mu-col>
             </mu-row>
           </mu-col>
         </mu-row>
       </mu-container>
     </div>
+
     <!-- 进度条 -->
-    <mu-flex>
-      <mu-linear-progress mode="determinate" :size="2" color="green"
-        :value="$store.getters.audio_progress"
-      />
-    </mu-flex>
+    <div class="progress-bar">
+      <mu-flex>
+        <mu-linear-progress mode="determinate" :size="2" color="green" :value="$store.getters.audio_progress"/>
+      </mu-flex>
+    </div>
+
+    <!-- 播放列表 -->
+    <Sheet ref="sheet"></Sheet>
+
   </div>
 </template>
 
@@ -52,15 +66,14 @@ export default {
   computed: {
     // mapState辅助函数
     ...mapState([
-      'audio'
+      'audio',
+      'playMode',
+      'playList'
     ]),
     ...mapState({
       audio_data: state => state.audio.data,
       audio_play: state => state.audio.play
     })
-  },
-  created () {
-    console.log(this)
   },
   // 侦听器
   watch: {
@@ -80,6 +93,7 @@ export default {
   methods: {
     // mapMutations辅助函数
     ...mapMutations([
+      'set_audio_data',
       'set_audio_ele',
       'set_audio_play',
       'set_audio_duration',
@@ -115,6 +129,27 @@ export default {
       _audio.onended = () => {
         this.set_audio_play(false)
       }
+    },
+
+    // 下一首歌
+    nextSound () {
+      // 查找当前歌曲在playLis的currentIndex
+      // findIndex()函数也是查找目标元素，找到就返回元素的位置，找不到就返回-1
+      let currentIndex = this.playList.findIndex((n) => n.sound.id === this.audio.data.sound.id)
+      // currentIndex是结尾的话？ 返回0 ， 否则 +1
+      if (currentIndex > -1) { // 存在数组
+        let nextIndex
+        currentIndex === this.playList.length - 1 ? nextIndex = 0 : nextIndex = currentIndex + 1
+        if (this.playList[nextIndex].sound.id === this.audio.data.sound.id) {
+          this.audio.ele.load()
+          this.audio.ele.play()
+        } else {
+          this.set_audio_data(this.playList[nextIndex])
+        }
+      } else {
+        // 正常逻辑不会来到这里
+        console.warn('Playlist is empty')
+      }
     }
 
   }
@@ -128,16 +163,28 @@ export default {
   width 100%
   position fixed
   bottom 0
-  background rgba(255,255,255, .95)
-  box-shadow 0 -2px 8px rgba(0,0,0,.15)
+  z-index 20180706
+  background #fff
   height toRem(50)
+  &:before
+    content ' '
+    position absolute
+    top 0
+    height 1px
+    width 100%
+    background #e6e6e6
+    display inline-block
   .sound
-    padding toRem(6) 0
-    img
-      width toRem(36)
-      height toRem(36)
-    .info
+    .sound-img
+      padding-right 0
+      padding-top toRem(6)
+      img
+        width toRem(36)
+        height toRem(36)
+    .sound-info
       padding-left 0
+      margin-left -8px
+      padding-top toRem(7)
       p
         font-size toRem(12)
         white-space nowrap
@@ -147,8 +194,13 @@ export default {
       .col
         text-align center
         color #666
-        font-size toRem(14)
-        height toRem(36)
-        line-height toRem(36)
-
+        svg
+          font-size toRem(16)
+  .progress-bar
+    position absolute
+    bottom 0
+    left  0
+    width 100%
+    height toRem(2)
+    z-index 10001
 </style>

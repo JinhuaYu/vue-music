@@ -12,7 +12,9 @@ const state = {
     currentTime: 0, // audio当前播放位置
     duration: 0 // audio音频长度
   },
-  listJson: {}
+  playMode: 'default', // 播放模式
+  playList: [], // 播放列表
+  listJson: {} // 数据存放
 }
 
 const getters = {
@@ -50,7 +52,13 @@ const mutations = {
   // 设置audio音频长度
   set_audio_duration (state, val) {
     state.audio.duration = val
+  },
+
+  // 设置播放列表
+  set_playList (state, val) {
+    state.playList = val.slice()
   }
+
 }
 
 const actions = {

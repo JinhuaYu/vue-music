@@ -2,6 +2,10 @@
   <div id="index">
     <!-- Banner -->
     <Banner :json="bannerJson"></Banner>
+    <!-- 播放全部 -->
+    <mu-button class="btn-playAll" fab small color="success" @click.stop="playAll()">
+      <font-awesome-icon icon="play"></font-awesome-icon>
+    </mu-button>
     <!-- 每日推荐 -->
     <div class="recommend">
       <h3 class="recommend-tt">echo每日推荐</h3>
@@ -15,7 +19,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'Index',
   data () {
@@ -33,10 +37,15 @@ export default {
   所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。
   */
   computed: {
-
+    ...mapState(['audio', 'playList'])
   },
   // methods
   methods: {
+    ...mapMutations([
+      'set_audio_data',
+      'set_playList'
+    ]),
+
     ...mapActions([
       'get_banner_data',
       'get_recommend_data'
@@ -89,8 +98,23 @@ export default {
         })
     },
 
+    // 向下划加载
     loadMore () {
       this.getMore_recommend()
+    },
+
+    // 播放全部
+    playAll () {
+      // 先给playList填充数据
+      this.set_playList(this.recommendJson)
+      // 如果正在播放的 == 即将播放的
+      if (this.audio.data && this.recommendJson[0].sound.id === this.audio.data.id) {
+        this.audio.ele.load()
+        this.audio.ele.play()
+      } else {
+        // 重新当前播放音乐 为recommendJson 的第一首歌
+        this.set_audio_data(this.recommendJson[0])
+      }
     }
 
   },
@@ -112,6 +136,13 @@ export default {
   line-height toRem(26)
   border-radius toRem(26)
   margin 10px auto
-  color #639e5e
+  color _green
   background-color #d6ffd6
+.btn-playAll
+  position fixed
+  top toRem(160)
+  left toRem(10)
+  z-index 10001
+  svg
+    font-size toRem(12)
 </style>
