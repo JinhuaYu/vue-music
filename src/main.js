@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
+import VueProgressBar from 'vue-progressbar'
 
 // css
 import './assets/css/reset.css'
@@ -36,9 +37,16 @@ import Sheet from './components/Sheet' // 播放列表
 Vue.config.productionTip = false
 
 Vue.use(MuseUI)
-// theme.use('light')
+// 轮播图
 Vue.use(VueAwesomeSwiper)
+// 图片懒加载
 Vue.use(VueLazyload)
+// 加载进度条
+Vue.use(VueProgressBar, {
+  color: 'rgb(76,175,80)',
+  failedColor: 'rgb(228,61,96)',
+  height: '2px'
+})
 
 Vue.component('Banner', Banner)
 Vue.component('List', List)

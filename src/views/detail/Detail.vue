@@ -161,7 +161,6 @@ export default {
 _green = #6ed56c
 #detail
   background #f6f6f6
-  padding-bottom toRem(60)
   // 发布人部分
   .sound-user
     font-size toRem(12)
@@ -188,6 +187,7 @@ _green = #6ed56c
     // 进度条 / 时间
     .progress-bar
       position absolute
+      left 0
       bottom toRem(55)
       width 100%
       height toRem(14)
@@ -218,6 +218,7 @@ _green = #6ed56c
     // 播放音乐
     .controls
       position absolute
+      left 0
       bottom 0
       width 100%
       height toRem(55)

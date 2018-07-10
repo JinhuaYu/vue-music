@@ -81,9 +81,11 @@ export default {
   &.fire-blue
     display block
     background-position -299px -215px
-
-.fire
-  background-image url('../assets/imgs/echo_mobile_sprites.png')
-  background-size 320px
-
+</style>
+<style>
+.fire{
+  background-image: url(~@/assets/imgs/echo_mobile_sprites.png);
+  background-repeat: no-repeat;
+  background-size: 320px;
+}
 </style>

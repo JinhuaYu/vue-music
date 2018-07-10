@@ -2,13 +2,13 @@
   <div id="index">
     <!-- Banner -->
     <Banner :json="bannerJson"></Banner>
-    <!-- 播放全部 -->
-    <mu-button class="btn-playAll" fab small color="success" @click.stop="playAll()">
-      <font-awesome-icon icon="play"></font-awesome-icon>
-    </mu-button>
     <!-- 每日推荐 -->
     <div class="recommend">
       <h3 class="recommend-tt">echo每日推荐</h3>
+      <!-- 播放全部 -->
+      <mu-button class="btn-playAll" fab small color="success" @click.stop="playAll()">
+        <font-awesome-icon icon="play"></font-awesome-icon>
+      </mu-button>
       <!-- 列表 -->
       <mu-load-more :loading="loading" @load="loadMore" :loaded-all="loadAll">
         <List :json="recommendJson"></List>
@@ -139,7 +139,7 @@ export default {
   color _green
   background-color #d6ffd6
 .btn-playAll
-  position fixed
+  position fixed !important
   top toRem(160)
   left toRem(10)
   z-index 10001
