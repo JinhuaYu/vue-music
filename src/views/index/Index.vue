@@ -70,7 +70,6 @@ export default {
         .then(res => {
           if (res.data) {
             this.recommendJson = res.data
-            console.log(this.recommendJson)
             this.page = 2
           }
         })

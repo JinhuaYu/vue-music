@@ -102,8 +102,6 @@ export default {
 
     // 初始化
     audio_init () {
-      console.log('init')
-
       let _audio = this.$el.querySelector('#audio')
       this.set_audio_ele(_audio) // 设置音乐元素
 
