@@ -11,14 +11,18 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 export default {
   name: 'App',
   computed: {
     ...mapState(['audio'])
   },
-
+  methods: {
+    ...mapMutations(['set_app_cache'])
+  },
   created () {
+    // 获取缓存
+    this.set_app_cache()
     //  [App.vue specific] When App.vue is first loaded start the progress bar
     this.$Progress.start()
     //  hook the progress bar to start before we move router-view

@@ -5,18 +5,16 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import VueProgressBar from 'vue-progressbar'
 
 // css
 import './assets/css/reset.css'
 
 // 第三方库
 import MuseUI from 'muse-ui' // Material Design UI 组件库
-import 'muse-ui/dist/muse-ui.css'
-// import theme from 'muse-ui/lib/theme'
-// import 'material-design-icons/iconfont/material-icons.css' // Muse-UI 推荐使用 material-icons
+import 'muse-ui/dist/muse-ui.css' // MuseUI css
+import VueProgressBar from 'vue-progressbar' // 加载进度条
 import VueAwesomeSwiper from 'vue-awesome-swiper' // 轮播图
-import 'swiper/dist/css/swiper.css' // 轮播样式
+import 'swiper/dist/css/swiper.css' // swiper css
 import VueLazyload from 'vue-lazyload' // 图片懒加载
 
 // FontAwesome
@@ -37,11 +35,8 @@ import Sheet from './components/Sheet' // 播放列表
 Vue.config.productionTip = false
 
 Vue.use(MuseUI)
-// 轮播图
 Vue.use(VueAwesomeSwiper)
-// 图片懒加载
 Vue.use(VueLazyload)
-// 加载进度条
 Vue.use(VueProgressBar, {
   color: 'rgb(76,175,80)',
   failedColor: 'rgb(228,61,96)',

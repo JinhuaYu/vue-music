@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.1.0",
     "@fortawesome/free-solid-svg-icons": "^5.1.0",
     "@fortawesome/vue-fontawesome": "^0.1.0",
+    "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "material-design-icons": "^3.0.1",
